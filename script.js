@@ -39,6 +39,7 @@ addBtn.addEventListener('click', function() {
   // Tạo nút x và gắn sự kiện xóa item khi nhấp vào nút x
   const deleteBtn = document.createElement('button');
   deleteBtn.innerHTML = 'x';
+  deleteBtn.classList.add(".close");
   deleteBtn.addEventListener('click', function() {
     newRow.remove();
     updateSttAndTotalAmount();
@@ -50,14 +51,13 @@ addBtn.addEventListener('click', function() {
   newRow.appendChild(deleteCell);
 
   // Thêm hàng mới vào tbody
-  tbody.appendChild(newRow);
+  tbody.insertBefore(newRow, tbody.firstChild);
 
   // Cập nhật tổng tiền
   totalAmount += amount;
   const totalCell = document.getElementById('total-amount');
   totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '.000';
 
-  // Không xóa dữ liệu của ô SDTkhachHangInput và DiaChikhachHangInput
   inputFields[3].value = '';
   inputFields[4].value = '';
   inputFields[5].value = '';
@@ -91,7 +91,8 @@ printBtn.addEventListener('click', function() {
       tableData.push(rowData);
     }
   }
-
+// Sắp xếp lại các dòng trong mảng tableData
+tableData.reverse();
   const docDefinition = {
     content: [
       { text: `Gốm Nhật Yến Vân`, style: 'header' },
