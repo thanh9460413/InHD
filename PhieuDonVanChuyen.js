@@ -60,16 +60,19 @@ const printBtn = document.getElementById('print-btn');
 
 
 
-// Xử lý sự kiện khi nhấp vào nút toggle navbar
-navbarToggle.addEventListener('click', function() {
-  navbarNav.classList.toggle('show');
-});
-
-// Xử lý sự kiện khi chọn một liên kết trong navbar
-const navLinks = navbarNav.getElementsByTagName('a');
-for (let i = 0; i < navLinks.length; i++) {
-  navLinks[i].addEventListener('click', function() {
-    // Chuyển trang khi nhấp vào liên kết
-    window.location.href = this.getAttribute('href');
+  const navbarToggle = document.querySelector('.navbar-toggler');
+  const navbarNav = document.querySelector('#navbarNav');
+  
+  // Xử lý sự kiện khi nhấp vào nút toggle navbar
+  navbarToggle.addEventListener('click', function() {
+    navbarNav.classList.toggle('show');
   });
-}
+  
+  // Xử lý sự kiện khi chọn một liên kết trong navbar
+  const navLinks = navbarNav.getElementsByTagName('a');
+  for (let i = 0; i < navLinks.length; i++) {
+    navLinks[i].addEventListener('click', function() {
+      // Chuyển trang khi nhấp vào liên kết
+      window.location.href = this.getAttribute('href');
+    });
+  }
