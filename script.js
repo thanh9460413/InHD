@@ -113,7 +113,7 @@ printBtn.addEventListener('click', function() {
               { text: 'Tổng tiền:', colSpan: 3, bold: true, alignment: 'right' },
               '',
               '',
-              { text: `${totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.')}.000`, bold: true }
+              { text: `${totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.')}`, bold: true }
             ]
           ]
         }
