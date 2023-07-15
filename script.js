@@ -19,22 +19,23 @@ addBtn.addEventListener('click', function() {
   const sttCell = document.createElement('td');
   sttCell.textContent = ++stt;
   newRow.appendChild(sttCell);
-
-  // Tạo các ô mới và thêm dữ liệu nhập vào
-  let amount = 0;
-  for (let i = 3; i < inputFields.length; i++) {
-    const cell = document.createElement('td');
-    if (i === 3) {
-      cell.textContent = inputFields[i].value;
-    } else if (i === 5) {
-      const formattedAmount = parseFloat(inputFields[i].value.replace('.', '').replace('.', ''));
-      amount = formattedAmount;
-      cell.textContent = formattedAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '.000';
-    } else if (i !== 3) {
-      cell.textContent = inputFields[i].value;
-    }
-    newRow.appendChild(cell);
+// Tạo các ô mới và thêm dữ liệu nhập vào
+let amount = 0;
+for (let i = 3; i < inputFields.length; i++) {
+  const cell = document.createElement('td');
+  if (i === 3) {
+    cell.textContent = inputFields[i].value;
+  } else if (i === 5) {
+    amount = parseFloat(inputFields[i].value.replace(/\./g, ''));
+    const formattedAmount = amount.toLocaleString('en-US', { minimumFractionDigits: 0 });
+    cell.textContent = formattedAmount.replace(/,/g, '.') + '.000';
+  } else {
+    cell.textContent = inputFields[i].value;
   }
+  newRow.appendChild(cell);
+}
+
+
 
   // Tạo nút x và gắn sự kiện xóa item khi nhấp vào nút x
   const deleteBtn = document.createElement('button');
@@ -56,7 +57,7 @@ addBtn.addEventListener('click', function() {
   // Cập nhật tổng tiền
   totalAmount += amount;
   const totalCell = document.getElementById('total-amount');
-  totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '.000';
+  totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
   inputFields[3].value = '';
   inputFields[4].value = '';
@@ -148,10 +149,11 @@ function updateSttAndTotalAmount() {
 
     const amountCell = row.cells[3];
     const amountText = amountCell.textContent;
-    const amount = parseFloat(amountCell.textContent.replace('.', '').replace('.', ''));
+    const amount = parseFloat(amountText.replace(/\./g, '').replace('.000', ''));
     totalAmount += amount;
   });
 
   const totalCell = document.getElementById('total-amount');
-  totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  totalCell.textContent = totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
+
