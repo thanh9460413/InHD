@@ -146,11 +146,12 @@ function updateSttAndTotalAmount() {
     const sttCell = row.cells[0];
     sttCell.textContent = rows.length - index;
 
-    const amountCell = row.cells[4];
+    const amountCell = row.cells[3];
+    const amountText = amountCell.textContent;
     const amount = parseFloat(amountCell.textContent.replace('.', '').replace('.', ''));
     totalAmount += amount;
   });
 
   const totalCell = document.getElementById('total-amount');
-  totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '.000';
+  totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
