@@ -9,7 +9,6 @@ let totalAmount = 0;
 let khachHang = '';
 let SDTKhachhang = '';
 let DiaChiKhachhang = '';
-
 addBtn.addEventListener('click', function() {
   const table = document.getElementById('report-table');
   const tbody = table.querySelector('tbody');
@@ -40,6 +39,7 @@ addBtn.addEventListener('click', function() {
   // Tạo nút x và gắn sự kiện xóa item khi nhấp vào nút x
   const deleteBtn = document.createElement('button');
   deleteBtn.innerHTML = 'x';
+  deleteBtn.classList.add(".close");
   deleteBtn.addEventListener('click', function() {
     newRow.remove();
     updateSttAndTotalAmount();
@@ -53,12 +53,14 @@ addBtn.addEventListener('click', function() {
   // Thêm hàng mới vào tbody
   tbody.insertBefore(newRow, tbody.firstChild);
 
-  // Xóa dữ liệu đã nhập
-  for (let i = 1; i < inputFields.length; i++) {
-    inputFields[i].value = '';
-  }
+  // Cập nhật tổng tiền
+  totalAmount += amount;
+  const totalCell = document.getElementById('total-amount');
+  totalCell.textContent = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '.000';
 
-  // Cập nhật số thứ tự (STT) và tổng tiền
+  inputFields[3].value = '';
+  inputFields[4].value = '';
+  inputFields[5].value = '';
   updateSttAndTotalAmount();
 });
 
