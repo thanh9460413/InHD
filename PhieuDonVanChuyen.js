@@ -7,7 +7,7 @@ const ShipInput = document.getElementById('ship-input');
 const ThuHoInput = document.getElementById('thuho-input');
 
 printBtn.addEventListener('click', function() {
-  const khachHang = khachHangInput.value;
+  const khachHang = khachHangInput.value.toUpperCase();;
   const SDTKhachHang = SDTKhachHangInput.value;
   const DiaChiKhachHang = DiaChiKhachHangInput.value;
   const SoLuong = SoLuongInput.value;
@@ -16,7 +16,7 @@ printBtn.addEventListener('click', function() {
 
   // Kiểm tra và định dạng số thu hộ
   let formattedThuHo = ThuHo;
-  if (!isNaN(ThuHo)) {
+  if (!isNaN(ThuHo)){
     const thuHoNumber = parseFloat(ThuHo);
     if (thuHoNumber >= 1000) {
       formattedThuHo = (thuHoNumber / 1000).toFixed(3).replace('.', '.') + '.000';
@@ -30,30 +30,65 @@ printBtn.addEventListener('click', function() {
     pageMargins: [0, 0, 0, 0],
     content: [
       { text: 'Người gửi: Gốm Nhật Yến Vân', bold: true, fontSize: 63 },
-      { text: 'Địa chỉ: 271 An Dương Vương Phường An Lạc Quận Bình Tân TpHCM', widths: '100%', fontSize: 27 },
-      { text: 'SĐT/Zalo: 0918095223 & 0919696242', fontSize: 45 },
-      { text: `Người nhận: ${khachHang}`, widths: '100%', fontSize: 40 },
-      { text: `Địa chỉ: ${DiaChiKhachHang}` || '\n\n\n', fontSize: 45, marginBottom: 10},
-    
+      {
+        text:[ 
+        { text: `Địa chỉ: `, bold:true},
+        { text: `271 An Dương Vương Phường An Lạc Quận Bình Tân TpHCM`},
+      ],fontSize:27},
+      {
+        text:[ 
+        { text: `SĐT/Zalo: `, bold:true},
+        { text: `0918095223 & 0919696242`},
+      ],fontSize:47},
+      {
+        text:[ 
+        { text: `Người nhận: `, bold:true},
+        { text: `${khachHang}`,bold:true},
+      ],widths: '100%', fontSize: 48},
+      {
+        text:[ 
+        { text: `Địa chỉ: `, bold:true},
+        { text: `${DiaChiKhachHang}`},
+      ]|| '\n\n\n', fontSize: 35, marginBottom: 10},
       {
           columns: [
-              { text: `Sđt: ${SDTKhachHang}`, width: '50%', fontSize: 45 },
-              { text: 'Hàng gốm sứ dễ vỡ', width: '50%', style: 'header', fontSize: 45 },
+              {
+                text:[ 
+                { text: `SĐT: `, bold:true},
+                { text: `${SDTKhachHang}` },
+              ],fontSize: 45},
             ],
       },
       {
           columns: [
-            { text: `Số lượng: ${SoLuong}`, width: '50%', fontSize: 45 },
-            { text: 'Xin nhẹ tay', width: '50%', style: 'header', fontSize: 45 },
+            {
+              text:[ 
+              { text: `Số lượng: `, bold:true},
+              { text: `${SoLuong}`,  },
+            ],widths:'50%', fontSize: 47 },
+            { text: 'Hàng gốm sứ dễ vỡ', width: '50%', style: 'header', fontSize: 45 },
           ],
       },
       {
           columns: [
-            { text: `Ship: ${Ship}`, width: '50%', fontSize: 45 },
-            { text: 'Cảm ơn', width: '50%', style: 'header', fontSize: 45 },
+            {
+              text:[ 
+              { text: `Ship: `, bold:true},
+              { text: `${Ship}`,  },
+            ],widths:'50%', fontSize: 45 },
+            { text: 'Xin nhẹ tay', width: '50%', style: 'header', fontSize: 45 },
           ],
       },
-      { text: `Thu hộ: ${formattedThuHo}`, fontSize: 45, rowSpan: 3, colSpan: 2 },
+      {
+        columns: [
+          {
+            text:[ 
+            { text: `Thu hộ: `, bold:true},
+            { text: `${formattedThuHo}`,  },
+          ],widths:'50%', fontSize: 45 },
+          { text: 'Cảm ơn', width: '50%', style: 'header', fontSize: 45 },
+        ],
+    },
     ],
     styles: {
       header: {
