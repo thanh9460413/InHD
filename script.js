@@ -3,9 +3,12 @@ const printBtn = document.getElementById('print-btn');
 const khachHangInput = document.getElementById('kh-input');
 const SDTkhachHangInput = document.getElementById('sdt-input');
 const DiaChikhachHangInput = document.getElementById('diachi-input');
+
 let stt = 0;
 let totalAmount = 0;
 let khachHang = '';
+let SDTKhachhang = '';
+let DiaChiKhachhang = '';
 
 addBtn.addEventListener('click', function() {
   const table = document.getElementById('report-table');
@@ -20,15 +23,15 @@ addBtn.addEventListener('click', function() {
 
   // Tạo các ô mới và thêm dữ liệu nhập vào
   let amount = 0;
-  for (let i = 1; i < inputFields.length; i++) {
+  for (let i = 3; i < inputFields.length; i++) {
     const cell = document.createElement('td');
-    if (i === 1) {
+    if (i === 3) {
       cell.textContent = inputFields[i].value;
     } else if (i === 5) {
       const formattedAmount = parseFloat(inputFields[i].value.replace('.', '').replace('.', ''));
       amount = formattedAmount;
       cell.textContent = formattedAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + '.000';
-    } else {
+    } else if (i !== 3) {
       cell.textContent = inputFields[i].value;
     }
     newRow.appendChild(cell);
@@ -59,6 +62,7 @@ addBtn.addEventListener('click', function() {
   updateSttAndTotalAmount();
 });
 
+
 printBtn.addEventListener('click', function() {
   khachHang = khachHangInput.value;
   SDTKhachhang = SDTkhachHangInput.value;
@@ -67,11 +71,13 @@ printBtn.addEventListener('click', function() {
   const table = document.getElementById('report-table');
   const tableData = [];
 
-  for (let i = table.rows.length - 2; i >= 0; i--) {
+  const tbody = table.querySelector('tbody');
+  const rows = tbody.getElementsByTagName('tr');
+  for (let i = 0; i < rows.length; i++) {
     const rowData = [];
-    const cells = table.rows[i].querySelectorAll('td');
+    const cells = rows[i].getElementsByTagName('td');
     let skipRow = false;
-    for (let j = 1; j < cells.length - 1; j++) {
+    for (let j = 0; j < cells.length - 1; j++) {
       const cellContent = cells[j].textContent;
       if (cellContent === "x") {
         skipRow = true;
@@ -81,14 +87,15 @@ printBtn.addEventListener('click', function() {
       }
     }
     if (!skipRow) {
-      tableData.unshift(rowData);
+      tableData.push(rowData);
     }
   }
-
+// Sắp xếp lại các dòng trong mảng tableData
+  tableData.reverse();
   const docDefinition = {
     content: [
       { text: `Gốm Nhật Yến Vân`, style: 'header' },
-      { text: `SĐT/Zalo: 0918095223 / 0919696242` },
+      { text: `SĐT/Zalo: 0918095223 & 0919696242` },
       { text: `Địa chỉ: 271 An Dương Vương Phường An Lạc Quận Bình Tân TpHCM` },
       { text: `Tên Khách Hàng: ${khachHang}` },
       { text: `SĐT Khách Hàng: ${SDTKhachhang}` },
@@ -115,7 +122,7 @@ printBtn.addEventListener('click', function() {
         fontSize: 18,
         bold: true,
         alignment: 'center',
-        margin: [0, 0, 0, 10]
+        margin: [0, 0, 0, 0]
       }
     }
   };
@@ -124,7 +131,10 @@ printBtn.addEventListener('click', function() {
   pdfDocGenerator.download('phieu_bao_cao.pdf');
 });
 
-// Hàm cập nhật số thứ tự (STT) và tổng tiền
+
+
+
+// Hàm cập nhật số thứ tự và tổng tiền
 function updateSttAndTotalAmount() {
   stt = 0;
   totalAmount = 0;
