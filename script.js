@@ -145,7 +145,7 @@ function updateSttAndTotalAmount() {
     const sttCell = row.cells[0];
     sttCell.textContent = index + 1;
 
-    const amountCell = row.cells[4];
+    const amountCell = row.cells[5];
     const amount = parseFloat(amountCell.textContent.replace('.', '').replace('.', ''));
     totalAmount += amount;
   });
