@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>In phiếu báo cáo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    /* CSS để tùy chỉnh phiếu báo cáo */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+    .close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5; }
+    .close:hover {
+      color: #000;
+      text-decoration: none; }
+    .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+      opacity: .75; }
+  
+  button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; }
+  </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="index.html">Gốm Nhật Yến Vân</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="./index.html">Hóa Đơn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="./PhieuDonVanChuyen.html">Phiếu giao hàng</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </br>
+  <div class="container">
+    <!-- Ô nhập liệu -->
+    <div class="mb-3">
+      <input type="text" class="form-control input-field" id="kh-input" placeholder="Tên khách hàng">
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control" id="diachi-input" placeholder="Địa chỉ khách hàng">
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control input-field" id="sdt-input" placeholder="SĐT khách hàng">
+    </div>
+    <div class="mb-3">
+      <input type="number" class="form-control input-field" id="soluong-input" placeholder="Số lượng">
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control input-field" id="ship-input" placeholder="Ship">
+    </div>
+    <div class="mb-3">
+      <input type="text" class="form-control input-field" id="thuho-input" placeholder="Thu hộ">
+    </div>
+    <div class="text-center">
+      <button id="print-btn" class="btn btn-primary">In Phiếu Giao Hàng</button>
+    </div>
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+  <script src="PhieuDonVanChuyen.js"></script>
+</body>
+</html>
