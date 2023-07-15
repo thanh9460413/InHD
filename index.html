@@ -34,7 +34,27 @@
     th {
       background-color: #f2f2f2;
     }
-
+    .close {
+    float: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 1px 0 #fff;
+    opacity: .5; }
+    .close:hover {
+      color: #000;
+      text-decoration: none; }
+    .close:not(:disabled):not(.disabled):hover, .close:not(:disabled):not(.disabled):focus {
+      opacity: .75; }
+  
+  button.close {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; }
   </style>
 </head>
 <body>
@@ -60,6 +80,7 @@
     </div>
     <div class="text-center">
       <button id="add-btn" class="btn btn-primary m-4">Thêm</button>
+      <button id="print-btn" class="btn btn-primary">In hóa đơn</button>
     </div>
     <table id="report-table" class="table table-bordered">
       <thead>
@@ -83,9 +104,7 @@
         </tr>
       </tfoot>
     </table>
-    <div class="text-center">
-      <button id="print-btn" class="btn btn-primary">In hóa đơn</button>
-    </div>
+
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
