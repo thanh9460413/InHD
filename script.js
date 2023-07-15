@@ -96,6 +96,7 @@ printBtn.addEventListener('click', function() {
 // Sắp xếp lại các dòng trong mảng tableData
   tableData.reverse();
   const docDefinition = {
+    // pageOrientation: 'landscape',
     content: [
       { text: `Gốm Nhật Yến Vân`, style: 'header' },
       { text: `SĐT/Zalo: 0918095223 & 0919696242` },
@@ -157,3 +158,19 @@ function updateSttAndTotalAmount() {
   totalCell.textContent = totalAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
+const navbarToggle = document.querySelector('.navbar-toggler');
+const navbarNav = document.querySelector('#navbarNav');
+
+// Xử lý sự kiện khi nhấp vào nút toggle navbar
+navbarToggle.addEventListener('click', function() {
+  navbarNav.classList.toggle('show');
+});
+
+// Xử lý sự kiện khi chọn một liên kết trong navbar
+const navLinks = navbarNav.getElementsByTagName('a');
+for (let i = 0; i < navLinks.length; i++) {
+  navLinks[i].addEventListener('click', function() {
+    // Chuyển trang khi nhấp vào liên kết
+    window.location.href = this.getAttribute('href');
+  });
+}
