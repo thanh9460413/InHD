@@ -1,0 +1,10 @@
+[
+  {
+    "khachHang": "Tên khách hàng",
+    "SDTKhachHang": "Số điện thoại",
+    "DiaChiKhachHang": "Địa chỉ",
+    "SoLuong": 4,
+    "Ship": "Ship",
+    "ThuHo": 100000
+  }
+]
