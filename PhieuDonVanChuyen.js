@@ -5,7 +5,52 @@ const DiaChiKhachHangInput = document.getElementById('diachi-input');
 const SoLuongInput = document.getElementById('soluong-input');
 const ShipInput = document.getElementById('ship-input');
 const ThuHoInput = document.getElementById('thuho-input');
+const firebaseConfig = {
+  apiKey: "AIzaSyAL2kP_r7MofPUadyxQZytIpF0CgQxcUMI",
+  authDomain: "gomnhatyenvan.firebaseapp.com",
+  databaseURL: "https://gomnhatyenvan-default-rtdb.firebaseio.com",
+  projectId: "gomnhatyenvan",
+  storageBucket: "gomnhatyenvan.appspot.com",
+  messagingSenderId: "106663547032",
+  appId: "1:106663547032:web:5f27df39c877728a71c0ed",
+  measurementId: "G-ZV70FXJ02J"
+};
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+const itemsRef = database.ref("/KhachHang");
+let foundItem = null;
+let searchSdt;
+// Hàm tìm kiếm số điện thoại trong mảng dữ liệu
+function searchSdtInArray(allItems, searchSdt) {
 
+  for (const key in allItems) {
+    if (allItems[key].SDTKhachHang === searchSdt) {
+      foundItem = allItems[key];
+      break;
+    }
+  }
+  return foundItem;
+}
+// Lắng nghe sự kiện "input" trên ô input số điện thoại
+SDTKhachHangInput.addEventListener('input', function () {
+  searchSdt = SDTKhachHangInput.value;
+
+  // Lấy tất cả dữ liệu trong nút "Items"
+  itemsRef.once('value')
+    .then(snapshot => {
+      const allItems = snapshot.val();
+      const foundItem = searchSdtInArray(allItems, searchSdt);
+      if (foundItem) {
+        // Nếu tìm thấy số điện thoại, hiển thị thông tin tương ứng lên input
+        khachHangInput.value = foundItem.TenKhachHang;
+        DiaChiKhachHangInput.value = foundItem.DiaChiKhachHang;
+      }
+    })
+
+    .catch(error => {
+      console.error("Error getting all items:", error);
+    });
+});
 printBtn.addEventListener('click', function() {
   const khachHang = khachHangInput.value.toUpperCase();;
   const SDTKhachHang = SDTKhachHangInput.value;
@@ -57,6 +102,8 @@ printBtn.addEventListener('click', function() {
                 { text: `SĐT: `, bold:true},
                 { text: `${SDTKhachHang}` },
               ],fontSize: 45},
+              { text: 'Không kiểm hàng', width: '50%', style: 'header', fontSize: 45 },
+              
             ],
       },
       {
@@ -67,6 +114,7 @@ printBtn.addEventListener('click', function() {
               { text: `${SoLuong}`,  },
             ],widths:'50%', fontSize: 47 },
             { text: 'Hàng gốm sứ dễ vỡ', width: '50%', style: 'header', fontSize: 45 },
+            
           ],
       },
       {
@@ -99,7 +147,44 @@ printBtn.addEventListener('click', function() {
       },
     },
   };
+  itemsRef.once('value')
+    .then(snapshot => {
+      const allItems = snapshot.val();
+      let foundItemId = null;
 
+      for (const key in allItems) {
+        if (allItems[key].SDTKhachHang === searchSdt) {
+          foundItemId = key;
+          break;
+        }
+      }
+
+      if (foundItemId) {
+        // Nếu đã tồn tại dữ liệu với số điện thoại đã nhập
+        const currentDate = new Date();
+        const date = currentDate.getDate();
+        const month = currentDate.getMonth() + 1; // Month is zero-based, so add 1 to get the actual month
+        const year = currentDate.getFullYear();
+        const existingKh = allItems[foundItemId].TenKhachHang;
+        const existingDiachi = allItems[foundItemId].DiaChiKhachHang;
+        // Nếu không tồn tại dữ liệu với số điện thoại đã nhập, thực hiện thêm mới
+        const newItemRef = database.ref("/ThuHo/").push();
+        newItemRef.set({
+          SDTKhachHang: searchSdt,
+          TenKhachHang: khachHangInput.value,
+          DiaChiKhachHang: DiaChiKhachHangInput.value,
+          ThuHo:formattedThuHo,
+          Ship:ShipInput.value,
+          Ngay:`${date}-${month}-${year}`,
+          TrangThai:"false"
+        }).then(() => {
+          console.log("Thêm mới thành công!");
+        })
+      }
+    })
+    .catch(error => {
+      console.error("Error getting all items:", error);
+    });
   const pdfDocGenerator = pdfMake.createPdf(docDefinition);
   pdfDocGenerator.download('phieu_bao_cao.pdf');
 });
