@@ -16,7 +16,22 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const thuHoRef = database.ref("/ThuHo");
+const navbarToggle = document.querySelector('.navbar-toggler');
+const navbarNav = document.querySelector('#navbarNav');
 
+// Xử lý sự kiện khi nhấp vào nút toggle navbar
+navbarToggle.addEventListener('click', function () {
+  navbarNav.classList.toggle('show');
+});
+
+// Xử lý sự kiện khi chọn một liên kết trong navbar
+const navLinks = navbarNav.getElementsByTagName('a');
+for (let i = 0; i < navLinks.length; i++) {
+  navLinks[i].addEventListener('click', function () {
+    // Chuyển trang khi nhấp vào liên kết
+    window.location.href = this.getAttribute('href');
+  });
+}
 // Function to display data as cards
 function displayData(data) {
   const dataContainer = document.getElementById("data-container");
@@ -238,19 +253,4 @@ function addClickEventListeners(dataArray) {
       });
     }
 }
-const navbarToggle = document.querySelector('.navbar-toggler');
-const navbarNav = document.querySelector('#navbarNav');
 
-// Xử lý sự kiện khi nhấp vào nút toggle navbar
-navbarToggle.addEventListener('click', function () {
-  navbarNav.classList.toggle('show');
-});
-
-// Xử lý sự kiện khi chọn một liên kết trong navbar
-const navLinks = navbarNav.getElementsByTagName('a');
-for (let i = 0; i < navLinks.length; i++) {
-  navLinks[i].addEventListener('click', function () {
-    // Chuyển trang khi nhấp vào liên kết
-    window.location.href = this.getAttribute('href');
-  });
-}
