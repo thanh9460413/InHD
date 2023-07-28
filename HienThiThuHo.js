@@ -255,3 +255,38 @@ function addClickEventListeners(dataArray) {
       });
     }
 }
+function isOlderThanTwoMonths(dateString) {
+    const twoMonthsAgo = new Date();
+    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+    const dateToCheck = new Date(convertDateToSortableFormat(dateString));
+    return dateToCheck < twoMonthsAgo;
+  }
+  
+  // Function to delete data older than 2 months from the database
+  function deleteOldData() {
+    thuHoRef.once('value')
+      .then(snapshot => {
+        const data = snapshot.val();
+        if (data) {
+          const dataArray = Object.entries(data).map(([key, value]) => ({ key, ...value }));
+          dataArray.forEach(item => {
+            const { Ngay } = item;
+            if (Ngay && isOlderThanTwoMonths(Ngay)) {
+              thuHoRef.child(item.key).remove()
+                .then(() => {
+                  console.log(`Data with key ${item.key} has been deleted.`);
+                })
+                .catch(error => {
+                  console.error(`Error deleting data with key ${item.key}:`, error);
+                });
+            }
+          });
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
+  }
+  
+  // Call the deleteOldData function to delete old data when the page is initially loaded
+  deleteOldData();
