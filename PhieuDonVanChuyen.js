@@ -3,7 +3,7 @@ const khachHangInput = document.getElementById('kh-input');
 const SDTKhachHangInput = document.getElementById('sdt-input');
 const DiaChiKhachHangInput = document.getElementById('diachi-input');
 const SoLuongInput = document.getElementById('soluong-input');
-const ShipInput = document.getElementById('ship-input');
+const ShipInput = document.getElementById('ship-option');
 const ThuHoInput = document.getElementById('thuho-input');
 const firebaseConfig = {
   apiKey: "AIzaSyAL2kP_r7MofPUadyxQZytIpF0CgQxcUMI",
@@ -122,7 +122,7 @@ printBtn.addEventListener('click', function() {
             {
               text:[ 
               { text: `Ship: `, bold:true},
-              { text: `${Ship + 'trả ship'}`,  },
+              { text: `${Ship}`,  },
             ],widths:'50%', fontSize: 45 },
             { text: 'Xin nhẹ tay', width: '50%', style: 'header', fontSize: 45 },
           ],
@@ -174,7 +174,7 @@ printBtn.addEventListener('click', function() {
           TenKhachHang: khachHangInput.value,
           DiaChiKhachHang: DiaChiKhachHangInput.value,
           ThuHo:formattedThuHo,
-          Ship:`${ShipInput.value} trả ship `,
+          Ship:ShipInput.value,
           Ngay:`${date}-${month}-${year}`,
           TrangThai:"false"
         }).then(() => {
