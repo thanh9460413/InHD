@@ -32,11 +32,19 @@ for (let i = 0; i < navLinks.length; i++) {
     window.location.href = this.getAttribute('href');
   });
 }
+function convertDateToSortableFormat(dateString) {
+    const [day, month, year] = dateString.split("-");
+    return `${year}-${month}-${day}`;
+  }
 // Function to display data as cards
 function displayData(data) {
+    data.sort((a, b) => {
+        const dateA = convertDateToSortableFormat(a.Ngay);
+        const dateB = convertDateToSortableFormat(b.Ngay);
+        return dateB.localeCompare(dateA);
+    });
   const dataContainer = document.getElementById("data-container");
   dataContainer.innerHTML = ""; // Clear previous data
-
   data.forEach((item) => {
     const { SDTKhachHang, TenKhachHang, DiaChiKhachHang, ThuHo, Ship, Ngay, TrangThai } = item;
     const statusText = TrangThai === "true" ? "Đã thu tiền" : "Chưa thu tiền";
@@ -207,12 +215,6 @@ function updateDisplayAndColorsByQuery() {
       console.error("Error fetching data:", error);
     });
 }
-
-// Function to handle click event on the search button
-const searchButton = document.getElementById("search-btn");
-searchButton.addEventListener('click', () => {
-  updateDisplayAndColorsByQuery();
-});
 
 // Fetch all data from Firebase and display it initially
 fetchAndDisplayData();
