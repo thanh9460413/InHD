@@ -102,7 +102,7 @@ printBtn.addEventListener('click', function() {
                 { text: `SĐT: `, bold:true},
                 { text: `${SDTKhachHang}` },
               ],fontSize: 45},
-              { text: 'Không kiểm hàng', width: '50%', style: 'header', fontSize: 45 },
+              { text: 'Vui lòng không kiểm hàng', width: '50%', style: 'header', fontSize: 45 },
               
             ],
       },
@@ -122,7 +122,7 @@ printBtn.addEventListener('click', function() {
             {
               text:[ 
               { text: `Ship: `, bold:true},
-              { text: `${Ship}`,  },
+              { text: `${Ship + 'trả ship'}`,  },
             ],widths:'50%', fontSize: 45 },
             { text: 'Xin nhẹ tay', width: '50%', style: 'header', fontSize: 45 },
           ],
@@ -174,7 +174,7 @@ printBtn.addEventListener('click', function() {
           TenKhachHang: khachHangInput.value,
           DiaChiKhachHang: DiaChiKhachHangInput.value,
           ThuHo:formattedThuHo,
-          Ship:ShipInput.value,
+          Ship:`${ShipInput.value} trả ship `,
           Ngay:`${date}-${month}-${year}`,
           TrangThai:"false"
         }).then(() => {
