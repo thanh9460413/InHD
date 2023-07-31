@@ -161,6 +161,11 @@ printBtn.addEventListener('click', function () {
       ]},
       {
         text:[ 
+        { text: `SĐT: `, bold:true},
+        { text: `${SDTKhachhang}`,bold:true},
+      ]},
+      {
+        text:[ 
         { text: `Địa chỉ: `, bold:true},
         { text: `${DiaChiKhachhang}`},
       ]},
