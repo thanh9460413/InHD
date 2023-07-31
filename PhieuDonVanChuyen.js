@@ -65,7 +65,7 @@ printBtn.addEventListener('click', function() {
     const thuHoNumber = parseFloat(ThuHo);
     if (thuHoNumber >= 1000) {
       formattedThuHo = (thuHoNumber / 1000).toFixed(3).replace('.', '.') + '.000';
-    }if(thuHoNumber == 0){
+    }else if(thuHoNumber == 0){
       formattedThuHo = thuHoNumber.toFixed(0);
     }
     else {
