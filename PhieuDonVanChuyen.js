@@ -64,12 +64,12 @@ printBtn.addEventListener('click', function() {
   if (!isNaN(ThuHo)){
     const thuHoNumber = parseFloat(ThuHo);
     if (thuHoNumber >= 1000) {
-      formattedThuHo = (thuHoNumber / 1000).toFixed(3).replace('.', '.') + '.000';
+      formattedThuHo = (thuHoNumber / 1000).toFixed(3).replace('.', '.') + '.000 Đồng';
     }else if(thuHoNumber == 0){
-      formattedThuHo = thuHoNumber.toFixed(0);
+      formattedThuHo = thuHoNumber.toFixed(0) + 'Đồng';
     }
     else {
-      formattedThuHo = thuHoNumber.toFixed(0) + '.000';
+      formattedThuHo = thuHoNumber.toFixed(0) + '.000 Đồng';
     }
   }
 
