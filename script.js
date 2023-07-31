@@ -143,7 +143,7 @@ printBtn.addEventListener('click', function () {
   const docDefinition = {
     // pageOrientation: 'landscape',
     content: [
-      { text: 'Người gửi: Gốm Nhật Yến Vân', style: 'header', fontSize: 20 },
+      { text: 'Gốm Nhật Yến Vân', style: 'header', fontSize: 25 },
       {
         text:[ 
         { text: `Địa chỉ: `, bold:true},
