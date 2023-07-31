@@ -91,7 +91,7 @@ printBtn.addEventListener('click', function() {
       {
         text:[ 
         { text: `Người nhận: `, bold:true},
-        { text: `${khachHang}`,bold:true},
+        { text: `${khachHang.toUpperCase()}`,bold:true},
       ],widths: '100%', fontSize: 48},
       {
         text:[ 
@@ -150,6 +150,9 @@ printBtn.addEventListener('click', function() {
       },
     },
   };
+  if(ThuHoInput.value != 0){
+    
+  }
   itemsRef.once('value')
     .then(snapshot => {
       const allItems = snapshot.val();
@@ -174,7 +177,7 @@ printBtn.addEventListener('click', function() {
         const newItemRef = database.ref("/ThuHo/").push();
         newItemRef.set({
           SDTKhachHang: searchSdt,
-          TenKhachHang: khachHangInput.value,
+          TenKhachHang: khachHang,
           DiaChiKhachHang: DiaChiKhachHangInput.value,
           ThuHo:formattedThuHo,
           Ship:ShipInput.value,
