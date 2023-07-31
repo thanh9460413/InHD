@@ -162,7 +162,7 @@ printBtn.addEventListener('click', function () {
       {
         text:[ 
         { text: `SĐT: `, bold:true},
-        { text: `${SDTKhachhang}`,bold:true},
+        { text: `${SDTKhachhang}`},
       ]},
       {
         text:[ 
