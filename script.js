@@ -157,7 +157,7 @@ printBtn.addEventListener('click', function () {
       {
         text:[ 
         { text: `Người nhận: `, bold:true},
-        { text: `${khachHang}`,bold:true},
+        { text: `${khachHang.toUpperCase()}`,bold:true},
       ]},
       {
         text:[ 
@@ -191,11 +191,12 @@ printBtn.addEventListener('click', function () {
     }
   };
   const searchSdt = SDTKhachhang;
-  const newKh = khachHang;
+  const newKh = khachHang.toUpperCase();
   const newDiachi = DiaChiKhachhang;
 
   // Lấy tất cả dữ liệu trong nút "Items"
-  itemsRef.once('value')
+  if(searchSdt){
+    itemsRef.once('value')
     .then(snapshot => {
       const allItems = snapshot.val();
       let foundItemId = null;
@@ -244,6 +245,7 @@ printBtn.addEventListener('click', function () {
     .catch(error => {
       console.error("Error getting all items:", error);
     });
+  }
   const pdfDocGenerator = pdfMake.createPdf(docDefinition);
   pdfDocGenerator.download('phieu_bao_cao.pdf');
 });
