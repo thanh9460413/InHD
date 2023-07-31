@@ -102,7 +102,7 @@ printBtn.addEventListener('click', function() {
                 { text: `SĐT: `, bold:true},
                 { text: `${SDTKhachHang}` },
               ],fontSize: 45},
-              { text: 'Không kiểm hàng', width: '50%', style: 'header', fontSize: 45 },
+              
               
             ],
       },
