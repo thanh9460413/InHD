@@ -140,10 +140,14 @@ printBtn.addEventListener('click', function () {
 
   // Sắp xếp lại các dòng trong mảng tableData
   tableData.reverse();
+  const currentDate = new Date();
+  const date = currentDate.getDate();
+  const month = currentDate.getMonth() + 1; // Month is zero-based, so add 1 to get the actual month
+  const year = currentDate.getFullYear();
   const docDefinition = {
     // pageOrientation: 'landscape',
     content: [
-      { text: 'Gốm Nhật Yến Vân', style: 'header', fontSize: 25 },
+      { text: 'Người gửi: Gốm Nhật Yến Vân', style: 'header', fontSize: 20 },
       {
         text:[ 
         { text: `Địa chỉ: `, bold:true},
@@ -161,8 +165,13 @@ printBtn.addEventListener('click', function () {
       ]},
       {
         text:[ 
+        { text: `Ngày: `, bold:true},
+        { text: `${date}/${month}/${year}`},
+      ]},
+      {
+        text:[ 
         { text: `SĐT: `, bold:true},
-        { text: `${SDTKhachhang}`},
+        { text: `${SDTKhachhang}`,bold:true},
       ]},
       {
         text:[ 
