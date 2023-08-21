@@ -160,7 +160,7 @@ printBtn.addEventListener('click', function () {
       ]},
       {
         text:[ 
-        { text: `Người nhận: `, bold:true},
+        { text: `Tên khách hàng: `, bold:true},
         { text: `${khachHang.toUpperCase()}`,bold:true},
       ]},
       {
