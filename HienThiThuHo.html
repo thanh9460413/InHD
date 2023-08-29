@@ -76,6 +76,9 @@
           <li class="nav-item">
             <a class="nav-link" href="./HienThiThuHo.html">Thu hộ</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./NhapHang.html">Nhập Hàng</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -86,6 +89,9 @@
     <div class="container">
         <div class="mb-3">
             <input type="text" class="form-control" id="search-input" placeholder="Nhập tên, số điện thoại hoặc ngày">
+          </div >
+          <div class="text-center">
+            <button id="Excel" class="btn btn-primary">Excel</button>
           </div>
         <div class="row" id="data-container">
           <!-- Data will be dynamically added here -->
@@ -96,7 +102,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
   <script src="HienThiThuHo.js"></script>
 </body>
 </html>

@@ -3,6 +3,7 @@ const printBtn = document.getElementById('print-btn');
 const khachHangInput = document.getElementById('kh-input');
 const SDTkhachHangInput = document.getElementById('sdt-input');
 const DiaChikhachHangInput = document.getElementById('diachi-input');
+const ExcelBtn =  document.getElementById('Excel');
 const firebaseConfig = {
   apiKey: "AIzaSyAL2kP_r7MofPUadyxQZytIpF0CgQxcUMI",
   authDomain: "gomnhatyenvan.firebaseapp.com",
@@ -255,38 +256,49 @@ function addClickEventListeners(dataArray) {
       });
     }
 }
-function isOlderThanTwoMonths(dateString) {
-    const twoMonthsAgo = new Date();
-    twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
-    const dateToCheck = new Date(convertDateToSortableFormat(dateString));
-    return dateToCheck < twoMonthsAgo;
-  }
-  
-  // Function to delete data older than 2 months from the database
-  function deleteOldData() {
-    thuHoRef.once('value')
-      .then(snapshot => {
-        const data = snapshot.val();
-        if (data) {
-          const dataArray = Object.entries(data).map(([key, value]) => ({ key, ...value }));
-          dataArray.forEach(item => {
-            const { Ngay } = item;
-            if (Ngay && isOlderThanTwoMonths(Ngay)) {
-              thuHoRef.child(item.key).remove()
-                .then(() => {
-                  console.log(`Data with key ${item.key} has been deleted.`);
-                })
-                .catch(error => {
-                  console.error(`Error deleting data with key ${item.key}:`, error);
-                });
-            }
-          });
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-  }
-  
-  // Call the deleteOldData function to delete old data when the page is initially loaded
-  deleteOldData();
+ExcelBtn.addEventListener('click', () => {
+  const sheetName = "Danh Sách Bán Hàng";
+  const fileName = "Danh Sách Bán Hàng.xlsx";
+  thuHoRef.once('value')
+  .then(snapshot => {
+    const allItems = snapshot.val();
+    // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
+    const exportData = [["STT", "SDT", "Tên khách hàng","Ngày","Địa chỉ", "Ship", "Thu hộ", "Trạng thái"]];
+    // Thêm dữ liệu từng hàng từ firebase vào mảng
+    Object.keys(allItems).forEach((key, index) => {
+      exportData.push([
+        index + 1,
+        allItems[key].SDTKhachHang,
+        allItems[key].TenKhachHang,
+        allItems[key].Ngay,
+        allItems[key].DiaChiKhachHang,
+        allItems[key].Ship,
+        allItems[key].ThuHo,
+        allItems[key].TrangThai === 'true'? 'Đã thu tiền':'Chưa thu tiền'
+      ]);
+    });
+
+    // Tạo một sổ làm việc mới
+    const workbook = XLSX.utils.book_new();
+
+    // Tạo một trang tính từ dữ liệu xuất
+    const worksheet = XLSX.utils.aoa_to_sheet(exportData);
+
+    // Thêm trang tính vào sổ làm việc
+    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+
+    // Xuất sổ làm việc sang định dạng XLSX
+    const wbout = XLSX.write(workbook, {bookType:'xlsx', type:'binary'});
+
+    // Tạo một hàm để chuyển đổi dữ liệu sang dạng nhị phân
+    function s2ab(s) {
+      var buf = new ArrayBuffer(s.length);
+      var view = new Uint8Array(buf);
+      for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+
+    // Tải xuống tệp XLSX
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), fileName);
+  });
+});

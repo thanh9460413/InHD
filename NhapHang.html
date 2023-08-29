@@ -86,57 +86,44 @@
 </br>
   <div class="container">
     <!-- Ô nhập liệu -->
-    <div class="mb-3">
-      <input type="number" class="form-control input-field" id="sdt-input" placeholder="SĐT khách hàng">
-    </div>
-    <div class="mb-3">
-      <input type="text" class="form-control input-field" id="kh-input" placeholder="Tên khách hàng">
-    </div>
-    <div class="mb-3">
-      <input type="text" class="form-control input-field" id="diachi-input" placeholder="Địa chỉ khách hàng">
-    </div>
-    <div class="mb-3">
-      <input type="text" class="form-control input-field" id="ten-input" placeholder="Tên món hàng">
-    </div>
-    <div class="mb-3">
-      <input type="text" class="form-control input-field" id="soluong-input" placeholder="Số lượng">
-    </div>
-    <div class="mb-3">
-      <input type="number" class="form-control input-field" id="thanhtien-input" placeholder="Thành tiền">
-    </div>
-    <div class="text-center">
-      <button id="add-btn" class="btn btn-primary m-4">Thêm</button>
-      <button id="print-btn" class="btn btn-primary">In hóa đơn</button>
-    </div>
-    <table id="report-table" class="table table-bordered">
-      <thead>
-        <tr>
-          <th>STT</th>
-          <th>Tên món hàng</th>
-          <th>Số lượng</th>
-          <th>Thành tiền</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Thêm dữ liệu phiếu báo cáo khác vào đây -->
-        
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="3" class="text-end">Tổng tiền:</td>
-          <td id="total-amount" class="text-bold"></td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
-
+    <div class="container">
+            <!-- Ô nhập liệu -->
+            <div class="mb-3">
+              <input type="number" class="form-control input-field" id="sdt-input" placeholder="SĐT người bán hàng">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control input-field" id="kh-input" placeholder="Tên người bán hàng">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control" id="diachi-input" placeholder="Địa chỉ người bán hàng">
+            </div>
+            <div class="mb-3">
+              <input type="text" class="form-control input-field" id="soluong-input" placeholder="Số lượng">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control input-field" id="tien-input" placeholder="Tiền mua hàng">
+              </div>
+            <div class="mb-3">
+                <input type="date" class="form-control" id="date-input" placeholder="Ngày mua hàng">
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" id="ghichu-input" placeholder="Ghi chú">
+            </div>
+            <div class="text-center">
+              <button id="insert-btn" class="btn btn-primary">Thêm</button>
+              <button id="Excel" class="btn btn-primary">Excel</button>
+            </div>
+            
+          </div>
+        <div class="row" id="data-container">
+          <!-- Data will be dynamically added here -->
+        </div>
   </div>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-database.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="NhapHang.js"></script>
 </body>
 </html>
