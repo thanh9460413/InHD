@@ -105,11 +105,11 @@ ExcelBtn.addEventListener('click', () => {
     // Định dạng các cột với khai báo width
     const columnWidths = [
       { wch: 5 },  // STT
-      { wch: 20 }, // SDT người bán hàng
-      { wch: 20 }, // Tên người bán hàng
-      { wch: 15 }, // Ngày mua
-      { wch: 10 }, // Số lượng
-      { wch: 15 }, // Tổng tiền
+      { wch: 10 }, // SDT người bán hàng
+      { wch: 15 }, // Tên người bán hàng
+      { wch: 5 }, // Ngày mua
+      { wch: 5 }, // Số lượng
+      { wch: 10 }, // Tổng tiền
     ];
 
     // Áp dụng định dạng chiều rộng cho các cột
