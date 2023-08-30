@@ -138,7 +138,6 @@ ExcelBtn.addEventListener('click', function() {
     ]);
 
     const docDefinition = {
-      pageMargins: [0, 0, 0, 0],
       content: [
         { text: 'Danh Sách Mua Hàng', style: 'header', fontSize: 25 },
         {
