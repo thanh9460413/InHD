@@ -119,9 +119,11 @@ ExcelBtn.addEventListener('click', () => {
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
     // Định dạng in trang tính
-    const printingOptions = {
-      pageOrientation: 'landscape', // Chế độ ngang
-      pageMargins: [0, 0, 0, 0]     // Các lề của trang
+   const printingOptions = {
+      pageOrientation: 'landscape',
+      fitToPage: true,          // Tự động thu nhỏ để in hết trang giấy
+      fitToWidth: 1,            // Số cột được phép thu nhỏ để in
+      fitToHeight: 0            // Số hàng được phép thu nhỏ để in
     };
     
     // Thêm tùy chọn in cho sổ làm việc
