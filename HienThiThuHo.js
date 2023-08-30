@@ -256,64 +256,90 @@ function addClickEventListeners(dataArray) {
       });
     }
 }
-ExcelBtn.addEventListener('click', () => {
-  const sheetName = "Danh Sách Bán Hàng";
-  const fileName = "Danh Sách Bán Hàng.xlsx";
+ExcelBtn.addEventListener('click', function() {
   thuHoRef.once('value')
   .then(snapshot => {
     const allItems = snapshot.val();
-    // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
-    const exportData = [["STT", "SDT", "Tên khách hàng","Ngày", "Thu hộ"]];
-    // Thêm dữ liệu từng hàng từ firebase vào mảng
+    const exportData = [
+      ["STT", "SDT người mua hàng", "Tên người mua hàng", "Địa chỉ", "Ngày mua", "Ship", "Thu hộ"]
+    ];
+    
+    let totalAmount = 0; // Biến để tích lũy tổng
+    
     Object.keys(allItems).forEach((key, index) => {
+      const item = allItems[key];
+      
+      // Kiểm tra xem các trường dữ liệu có tồn tại và không phải undefined
+      const sdt = item.SDTKhachHang || "";
+      const ten = item.TenKhachHang || "";
+      const diaChi = item.DiaChiKhachHang || "";
+      const ngay = item.Ngay || "";
+      const ship = item.Ship || "";
+      const tongTien = item.ThuHo || "";
+
+      // Trích xuất giá trị số từ chuỗi tổng tiền (VD: "350.000.000Đ" => 350000000)
+      const numericTongTien = parseFloat(tongTien.replace(/[^\d]/g, ""));
+      
+      // Cộng tổng tiền vào biến totalAmount
+      if (!isNaN(numericTongTien)) {
+        totalAmount += numericTongTien;
+      }
+
       exportData.push([
         index + 1,
-        allItems[key].SDTKhachHang,
-        allItems[key].TenKhachHang,
-        allItems[key].Ngay,
-        allItems[key].ThuHo,
+        sdt,
+        ten,
+        diaChi,
+        ngay,
+        ship,
+        tongTien,
       ]);
     });
-    
-    // Tạo một sổ làm việc mới
-    const workbook = XLSX.utils.book_new();
 
-    // Tạo một trang tính từ dữ liệu xuất
-    const worksheet = XLSX.utils.aoa_to_sheet(exportData);
-    const columnWidths = [
-      { wch: 5 },  // STT
-      { wch: 15 }, // SDT người bán hàng
-      { wch: 15 }, // Tên người bán hàng
-      { wch: 15 }, // Ngày mua
-      { wch: 15 }, // Tổng tiền
-    ];
+    // Định dạng lại giá trị tổng tiền để hiển thị trong bảng PDF
+    const formattedTotalAmount = totalAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-    // Áp dụng định dạng chiều rộng cho các cột
-    worksheet['!cols'] = columnWidths;
-    // Thêm trang tính vào sổ làm việc
-    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-    const printingOptions = {
-      pageOrientation: 'landscape', // Chế độ ngang
-      pageMargins: [0, 0, 0, 0]     // Các lề của trang
+    // Thêm dòng tổng vào mảng exportData
+    exportData.push([
+      { text: 'Tổng tiền:', colSpan: 6, bold: true, alignment: 'right' },
+      '',
+      '',
+      '',
+      '',
+      '',
+      { text: formattedTotalAmount, bold: true }
+    ]);
+
+    const docDefinition = {
+      content: [
+        { text: 'Danh Sách Bán Hàng', style: 'header', fontSize: 25 },
+        {
+          table: {
+            headerRows: 1,
+            widths: ['5%', '15%', '15%', '25%', '13%', '10%', '17%'],
+            body: exportData
+          }
+        }
+      ],
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 10, 0]
+        }
+      }
     };
-    
-    // Thêm tùy chọn in cho sổ làm việc
-    workbook.Props = {
-      ...workbook.Props,
-      ...printingOptions
-    };
-    // Xuất sổ làm việc sang định dạng XLSX
-    const wbout = XLSX.write(workbook, {bookType:'xlsx', type:'binary'});
-    
-    // Tạo một hàm để chuyển đổi dữ liệu sang dạng nhị phân
-    function s2ab(s) {
-      var buf = new ArrayBuffer(s.length);
-      var view = new Uint8Array(buf);
-      for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-      return buf;
-    }
 
-    // Tải xuống tệp XLSX
-    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), fileName);
+    const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    pdfDocGenerator.download('Danh Sách Bán Hàng.pdf');
+  })
+  .catch(error => {
+    console.error("Error retrieving data:", error);
   });
 });
+
+
+
+
+
