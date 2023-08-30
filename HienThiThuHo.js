@@ -263,7 +263,7 @@ ExcelBtn.addEventListener('click', () => {
   .then(snapshot => {
     const allItems = snapshot.val();
     // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
-    const exportData = [["STT", "SDT", "Tên khách hàng","Ngày","Địa chỉ", "Ship", "Thu hộ", "Trạng thái"]];
+    const exportData = [["STT", "SDT", "Tên khách hàng","Ngày", "Thu hộ"]];
     // Thêm dữ liệu từng hàng từ firebase vào mảng
     Object.keys(allItems).forEach((key, index) => {
       exportData.push([
@@ -271,10 +271,7 @@ ExcelBtn.addEventListener('click', () => {
         allItems[key].SDTKhachHang,
         allItems[key].TenKhachHang,
         allItems[key].Ngay,
-        allItems[key].DiaChiKhachHang,
-        allItems[key].Ship,
         allItems[key].ThuHo,
-        allItems[key].TrangThai === 'true'? 'Đã thu tiền':'Chưa thu tiền'
       ]);
     });
     
@@ -288,10 +285,7 @@ ExcelBtn.addEventListener('click', () => {
       { wch: 20 }, // SDT người bán hàng
       { wch: 20 }, // Tên người bán hàng
       { wch: 15 }, // Ngày mua
-      { wch: 70 }, // Địa chỉ người bán hàng
-      { wch: 10 }, // Số lượng
       { wch: 20 }, // Tổng tiền
-      { wch: 10 }  // Ghi chú
     ];
 
     // Áp dụng định dạng chiều rộng cho các cột
