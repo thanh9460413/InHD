@@ -263,12 +263,11 @@ ExcelBtn.addEventListener('click', () => {
   .then(snapshot => {
     const allItems = snapshot.val();
     // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
-    const exportData = [["STT", "SDT", "Tên khách hàng","Ngày", "Thu hộ"]];
+    const exportData = [["STT", "Tên khách hàng","Ngày", "Thu hộ"]];
     // Thêm dữ liệu từng hàng từ firebase vào mảng
     Object.keys(allItems).forEach((key, index) => {
       exportData.push([
         index + 1,
-        allItems[key].SDTKhachHang,
         allItems[key].TenKhachHang,
         allItems[key].Ngay,
         allItems[key].ThuHo,
@@ -282,7 +281,6 @@ ExcelBtn.addEventListener('click', () => {
     const worksheet = XLSX.utils.aoa_to_sheet(exportData);
     const columnWidths = [
       { wch: 5 },  // STT
-      { wch: 5 }, // SDT người bán hàng
       { wch: 8 }, // Tên người bán hàng
       { wch: 5 }, // Ngày mua
       { wch: 5 }, // Tổng tiền
