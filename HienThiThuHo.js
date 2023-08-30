@@ -298,10 +298,19 @@ ExcelBtn.addEventListener('click', () => {
     worksheet['!cols'] = columnWidths;
     // Thêm trang tính vào sổ làm việc
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-
+    const printingOptions = {
+      pageOrientation: 'landscape', // Chế độ ngang
+      pageMargins: [0, 0, 0, 0]     // Các lề của trang
+    };
+    
+    // Thêm tùy chọn in cho sổ làm việc
+    workbook.Props = {
+      ...workbook.Props,
+      ...printingOptions
+    };
     // Xuất sổ làm việc sang định dạng XLSX
     const wbout = XLSX.write(workbook, {bookType:'xlsx', type:'binary'});
-
+    
     // Tạo một hàm để chuyển đổi dữ liệu sang dạng nhị phân
     function s2ab(s) {
       var buf = new ArrayBuffer(s.length);
