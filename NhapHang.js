@@ -73,48 +73,67 @@ insertBtn.addEventListener('click', () => {
       });
 });
 ExcelBtn.addEventListener('click', () => {
-    const sheetName = "Danh Sách Mua Hàng";
-    const fileName = "Danh Sách Mua Hàng.xlsx";
-    NhapHangRef.once('value')
-    .then(snapshot => {
-      const allItems = snapshot.val();
-      // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
-      const exportData = [["STT", "SDT người bán hàng", "Tên người bán hàng","Ngày mua","Địa chỉ người bán hàng", "Số lượng", "Tổng tiền", "Ghi chú"]];
-      // Thêm dữ liệu từng hàng từ firebase vào mảng
-      Object.keys(allItems).forEach((key, index) => {
-        exportData.push([
-          index + 1,
-          allItems[key].SDTNguoiBanHang,
-          allItems[key].TenNguoiBanHang,
-          allItems[key].Ngay,
-          allItems[key].DiaChiNguoiBanHang,
-          allItems[key].SoLuong,
-          allItems[key].TongTien,
-          allItems[key].GhiChu 
-        ]);
-      });
-  
-      // Tạo một sổ làm việc mới
-      const workbook = XLSX.utils.book_new();
-  
-      // Tạo một trang tính từ dữ liệu xuất
-      const worksheet = XLSX.utils.aoa_to_sheet(exportData);
-  
-      // Thêm trang tính vào sổ làm việc
-      XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-  
-      // Xuất sổ làm việc sang định dạng XLSX
-      const wbout = XLSX.write(workbook, {bookType:'xlsx', type:'binary'});
-  
-      // Tạo một hàm để chuyển đổi dữ liệu sang dạng nhị phân
-      function s2ab(s) {
-        var buf = new ArrayBuffer(s.length);
-        var view = new Uint8Array(buf);
-        for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
-        return buf;
-      }
-  
-      // Tải xuống tệp XLSX
-      saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), fileName);
+  const sheetName = "Danh Sách Mua Hàng";
+  const fileName = "Danh Sách Mua Hàng.xlsx";
+  NhapHangRef.once('value')
+  .then(snapshot => {
+    const allItems = snapshot.val();
+    
+    // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
+    const exportData = [
+      ["STT", "SDT người bán hàng", "Tên người bán hàng", "Ngày mua", "Địa chỉ người bán hàng", "Số lượng", "Tổng tiền", "Ghi chú"]
+    ];
+    
+    // Thêm dữ liệu từng hàng từ firebase vào mảng
+    Object.keys(allItems).forEach((key, index) => {
+      exportData.push([
+        index + 1,
+        allItems[key].SDTNguoiBanHang,
+        allItems[key].TenNguoiBanHang,
+        allItems[key].Ngay,
+        allItems[key].DiaChiNguoiBanHang,
+        allItems[key].SoLuong,
+        allItems[key].TongTien,
+        allItems[key].GhiChu
+      ]);
     });
+    
+    // Tạo một sổ làm việc mới
+    const workbook = XLSX.utils.book_new();
+    
+    // Tạo một trang tính từ dữ liệu xuất
+    const worksheet = XLSX.utils.aoa_to_sheet(exportData);
+
+    // Định dạng các cột với khai báo width
+    const columnWidths = [
+      { wch: 5 },  // STT
+      { wch: 20 }, // SDT người bán hàng
+      { wch: 20 }, // Tên người bán hàng
+      { wch: 15 }, // Ngày mua
+      { wch: 70 }, // Địa chỉ người bán hàng
+      { wch: 10 }, // Số lượng
+      { wch: 15 }, // Tổng tiền
+      { wch: 30 }  // Ghi chú
+    ];
+
+    // Áp dụng định dạng chiều rộng cho các cột
+    worksheet['!cols'] = columnWidths;
+    
+    // Thêm trang tính vào sổ làm việc
+    XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+    
+    // Xuất sổ làm việc sang định dạng XLSX
+    const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+    
+    // Tạo một hàm để chuyển đổi dữ liệu sang dạng nhị phân
+    function s2ab(s) {
+      var buf = new ArrayBuffer(s.length);
+      var view = new Uint8Array(buf);
+      for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+      return buf;
+    }
+    
+    // Tải xuống tệp XLSX
+    saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), fileName);
   });
+});
