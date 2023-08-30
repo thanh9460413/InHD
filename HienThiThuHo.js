@@ -277,13 +277,25 @@ ExcelBtn.addEventListener('click', () => {
         allItems[key].TrangThai === 'true'? 'Đã thu tiền':'Chưa thu tiền'
       ]);
     });
-
+    
     // Tạo một sổ làm việc mới
     const workbook = XLSX.utils.book_new();
 
     // Tạo một trang tính từ dữ liệu xuất
     const worksheet = XLSX.utils.aoa_to_sheet(exportData);
+    const columnWidths = [
+      { wch: 5 },  // STT
+      { wch: 20 }, // SDT người bán hàng
+      { wch: 20 }, // Tên người bán hàng
+      { wch: 15 }, // Ngày mua
+      { wch: 70 }, // Địa chỉ người bán hàng
+      { wch: 10 }, // Số lượng
+      { wch: 20 }, // Tổng tiền
+      { wch: 10 }  // Ghi chú
+    ];
 
+    // Áp dụng định dạng chiều rộng cho các cột
+    worksheet['!cols'] = columnWidths;
     // Thêm trang tính vào sổ làm việc
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
 
