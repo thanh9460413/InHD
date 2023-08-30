@@ -262,7 +262,9 @@ ExcelBtn.addEventListener('click', () => {
   thuHoRef.once('value')
   .then(snapshot => {
     const allItems = snapshot.val();
-    const exportData = [["STT", "SDT", "Tên khách hàng", "Ngày", "Thu hộ"]];
+    // Tạo một mảng chứa dữ liệu xuất với tiêu đề các cột
+    const exportData = [["STT", "SDT", "Tên khách hàng","Ngày", "Thu hộ"]];
+    // Thêm dữ liệu từng hàng từ firebase vào mảng
     Object.keys(allItems).forEach((key, index) => {
       exportData.push([
         index + 1,
@@ -273,32 +275,37 @@ ExcelBtn.addEventListener('click', () => {
       ]);
     });
     
+    // Tạo một sổ làm việc mới
     const workbook = XLSX.utils.book_new();
+
+    // Tạo một trang tính từ dữ liệu xuất
     const worksheet = XLSX.utils.aoa_to_sheet(exportData);
     const columnWidths = [
       { wch: 5 },  // STT
       { wch: 15 }, // SDT người bán hàng
-      { wch: 20 }, // Tên người bán hàng (tăng độ rộng)
+      { wch: 15 }, // Tên người bán hàng
       { wch: 15 }, // Ngày mua
       { wch: 15 }, // Tổng tiền
     ];
 
+    // Áp dụng định dạng chiều rộng cho các cột
     worksheet['!cols'] = columnWidths;
+    // Thêm trang tính vào sổ làm việc
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
     const printingOptions = {
-      pageOrientation: 'landscape',
-      fitToPage: true,          // Tự động thu nhỏ để in hết trang giấy
-      fitToWidth: 1,            // Số cột được phép thu nhỏ để in
-      fitToHeight: 0            // Số hàng được phép thu nhỏ để in
+      pageOrientation: 'landscape', // Chế độ ngang
+      pageMargins: [0, 0, 0, 0]     // Các lề của trang
     };
     
+    // Thêm tùy chọn in cho sổ làm việc
     workbook.Props = {
       ...workbook.Props,
       ...printingOptions
     };
+    // Xuất sổ làm việc sang định dạng XLSX
+    const wbout = XLSX.write(workbook, {bookType:'xlsx', type:'binary'});
     
-    const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
-    
+    // Tạo một hàm để chuyển đổi dữ liệu sang dạng nhị phân
     function s2ab(s) {
       var buf = new ArrayBuffer(s.length);
       var view = new Uint8Array(buf);
@@ -306,6 +313,7 @@ ExcelBtn.addEventListener('click', () => {
       return buf;
     }
 
-    saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), fileName);
+    // Tải xuống tệp XLSX
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), fileName);
   });
 });
