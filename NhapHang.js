@@ -47,13 +47,10 @@ insertBtn.addEventListener('click', () => {
     const ghiChu = GhiChuInput.value;
   
     // Check if the data with the specified phone number already exists
-    NhapHangRef.orderByChild("SDTNguoiBanHang").equalTo(searchSdt).once('value')
+    NhapHangRef.once('value')
       .then(snapshot => {
-        if (snapshot.exists()) {
-          console.log("Data with this phone number already exists.");
-        } else {
           // Add new data to the NhapHang node
-          const newItemRef = NhapHangRef.push();
+          const newItemRef = database.ref("/NhapHang/").push();
           newItemRef.set({
             SDTNguoiBanHang: searchSdt,
             TenNguoiBanHang: tenNguoiBanHang,
@@ -69,7 +66,7 @@ insertBtn.addEventListener('click', () => {
           .catch(error => {
             console.error("Error adding new data:", error);
           });
-        }
+        
       })
       .catch(error => {
         console.error("Error checking for existing data:", error);
