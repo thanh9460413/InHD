@@ -110,7 +110,7 @@ ExcelBtn.addEventListener('click', () => {
       { wch: 20 }, // SDT người bán hàng
       { wch: 20 }, // Tên người bán hàng
       { wch: 15 }, // Ngày mua
-      { wch: 70 }, // Địa chỉ người bán hàng
+      { wch: 30 }, // Địa chỉ người bán hàng
       { wch: 10 }, // Số lượng
       { wch: 15 }, // Tổng tiền
       { wch: 30 }  // Ghi chú
@@ -121,6 +121,18 @@ ExcelBtn.addEventListener('click', () => {
     
     // Thêm trang tính vào sổ làm việc
     XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
+
+    // Định dạng in trang tính
+    const printingOptions = {
+      pageOrientation: 'landscape', // Chế độ ngang
+      pageMargins: [0, 0, 0, 0]     // Các lề của trang
+    };
+    
+    // Thêm tùy chọn in cho sổ làm việc
+    workbook.Props = {
+      ...workbook.Props,
+      ...printingOptions
+    };
     
     // Xuất sổ làm việc sang định dạng XLSX
     const wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
