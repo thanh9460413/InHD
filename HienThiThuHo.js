@@ -282,10 +282,10 @@ ExcelBtn.addEventListener('click', () => {
     const worksheet = XLSX.utils.aoa_to_sheet(exportData);
     const columnWidths = [
       { wch: 5 },  // STT
-      { wch: 20 }, // SDT người bán hàng
-      { wch: 20 }, // Tên người bán hàng
+      { wch: 15 }, // SDT người bán hàng
+      { wch: 15 }, // Tên người bán hàng
       { wch: 15 }, // Ngày mua
-      { wch: 20 }, // Tổng tiền
+      { wch: 15 }, // Tổng tiền
     ];
 
     // Áp dụng định dạng chiều rộng cho các cột
