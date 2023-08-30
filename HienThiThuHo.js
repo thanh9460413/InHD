@@ -283,9 +283,9 @@ ExcelBtn.addEventListener('click', () => {
     const columnWidths = [
       { wch: 5 },  // STT
       { wch: 5 }, // SDT người bán hàng
-      { wch: 10 }, // Tên người bán hàng
+      { wch: 8 }, // Tên người bán hàng
       { wch: 5 }, // Ngày mua
-      { wch: 10 }, // Tổng tiền
+      { wch: 5 }, // Tổng tiền
     ];
 
     // Áp dụng định dạng chiều rộng cho các cột
