@@ -151,7 +151,7 @@ printBtn.addEventListener('click', function () {
       {
         text:[ 
         { text: `Địa chỉ: `, bold:true},
-        { text: `271 An Dương Vương Phường An Lạc Quận Bình Tân TpHCM`},
+        { text: `31/21/27/17 Đường số 1 Kp5 P.Tân Tạo A Quận Bình Tân`},
       ]},
       {
         text:[ 
