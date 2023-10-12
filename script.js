@@ -4,14 +4,14 @@ const khachHangInput = document.getElementById('kh-input');
 const SDTkhachHangInput = document.getElementById('sdt-input');
 const DiaChikhachHangInput = document.getElementById('diachi-input');
 const firebaseConfig = {
-  apiKey: "AIzaSyAL2kP_r7MofPUadyxQZytIpF0CgQxcUMI",
-  authDomain: "gomnhatyenvan.firebaseapp.com",
-  databaseURL: "https://gomnhatyenvan-default-rtdb.firebaseio.com",
-  projectId: "gomnhatyenvan",
-  storageBucket: "gomnhatyenvan.appspot.com",
-  messagingSenderId: "106663547032",
-  appId: "1:106663547032:web:5f27df39c877728a71c0ed",
-  measurementId: "G-ZV70FXJ02J"
+  apiKey: "AIzaSyDXXOikQd3P1qxodkApktjN-GznKHxMqbs",
+  authDomain: "gomsuyenvan.firebaseapp.com",
+  databaseURL: "https://gomsuyenvan-default-rtdb.firebaseio.com",
+  projectId: "gomsuyenvan",
+  storageBucket: "gomsuyenvan.appspot.com",
+  messagingSenderId: "265332355511",
+  appId: "1:265332355511:web:770a66afd2a81101afb832",
+  measurementId: "G-6V4Y3X0WYT"
 };
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
